@@ -29,19 +29,55 @@ header {
     border-right: solid 2px grey;
     height: 100%;
     justify-self: flex-start;
+    padding-left: 2%;
+    margin-bottom: 15px;
     width: 20%;
 }
 
 .scoreBoard h1 {
     border-bottom: solid 1px grey;
-    margin-left: 2%;
     padding-bottom: 2px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 2%;
+    margin-top: 1%;
 }
 
 .quiz {
     display: flex;
     padding-left: 5px;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 50px;
     height: 100%;
     width: 80%;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+}
+
+.question h1 {
+    display: none;
+    padding-bottom: 15px;
+}
+
+.question p {
+    align-self: center;
+}
+
+.startQuiz {
+    height: 50px;
+    margin-bottom: 25px;
+    width: 200px;
+}
+
+.answerBtns {
+    display: none;
+    height: 50px;
+    margin-bottom: 10px;
+    min-width: 200px;
 }

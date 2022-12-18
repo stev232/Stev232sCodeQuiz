@@ -16,21 +16,32 @@
         <section class="main" id="main">
             <section class="scoreBoard" id="scoreBoard">
                 <h1>Top Scores</h1>
-                <ol>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ol>
+                <ul>
+                    <li id="firstPlace"></li>
+                    <li id="secondPlace"></li>
+                    <li id="thirdPlace"></li>
+                    <li id="fourthPlace"></li>
+                    <li id="fifthPlace"></li>
+                    <li id="sixthPlace"></li>
+                    <li id="seventhPlace"></li>
+                    <li id="eighthPlace"></li>
+                    <li id="ninethPlace"></li>
+                    <li id="tenthPlace"></li>
+                </ul>
+                <button class="scoreReset" id="scoreReset">Reset Scores</button>
             </section>
 
             <section class="quiz" id="quiz">
                 <section class="question" id="question">
-                    <h1>This is a question</h1>
+                    <p>Time left: <span id="timer"></span></p>
+                    <h1 id="questionContainer"></h1>
+                    <button class="startQuiz" id="startQuiz">Start Quiz!</button>
                 </section>
                 <section class="answer" id="answer">
-
+                    <button class="answerBtns" id="answerOne"></button>
+                    <button class="answerBtns" id="answerTwo"></button>
+                    <button class="answerBtns" id="answerThree"></button>
+                    <button class="answerBtns" id="answerFour"></button>
                 </section>
             </section>
 
