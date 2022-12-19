@@ -30,13 +30,15 @@ const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPla
                 "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
 
 const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?", "Which of these elements is an being referenced in CSS by id?", 
-        "Which of these elements is an being referenced in CSS by class?", "How do you call item 3 from an array", ];
+        "Which of these elements is an being referenced in CSS by class?", "How do you call item 3 from an array", "How do you display a variable with a String of text", ];
 const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
         ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />',
         '<link rel="./assets/css/style.css" href="stylesheet" />'],
         ['#name', '.name', '/name', 'name'],
         ['.name', '#name', '/name', 'name'],
-        ['name[2]', 'name[3]', 'name<2>', 'name<3>'], ];
+        ['name[2]', 'name[3]', 'name<2>', 'name<3>'],
+        ['.textContent = variable + " a String of text";' , '.textContent = variable * " a String of text";', '.textContent = variable - " a String of text";' , 
+        '.textContent = variable "a String of text";'], ];
 
 /* display top 10 scores */
 
@@ -95,7 +97,6 @@ function startTime() {
             answerFour.style.display="none";
             scoreReview.style.display="block";
             displayScore.textContent=score;
-            document.getElementById("quiz").setAttribute("flex-direction", "column");
             clearInterval(timerInterval);
         } else if(timer === 0) {
             score = timer;
@@ -105,7 +106,6 @@ function startTime() {
             answerThree.style.display="none";
             answerFour.style.display="none";
             scoreReview.style.display="block";
-            document.getElementById("quiz").setAttribute("flex-direction", "column");
             clearInterval(timerInterval);
         }
         timer--;
@@ -139,6 +139,7 @@ function questionRand() {
         }
 
     }
+    holder = "";
 }
 
 /* randomize where the answers display */
@@ -158,6 +159,7 @@ function answerRand() {
             i -= 1;
         }
     }
+    holder = "";
 }
 
 /* check if user input is correct */
@@ -183,7 +185,6 @@ resetScores.addEventListener("click", function() {
 });
 
 startQuiz.addEventListener("click", function() {
-    document.getElementById("quiz").setAttribute("flex-direction", "row");
     isComplete = false;
     timer = 60;
     questionNum = 0;
