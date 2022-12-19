@@ -30,7 +30,8 @@ const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPla
                 "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
 
 const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?", "Which of these elements is an being referenced in CSS by id?", 
-        "Which of these elements is an being referenced in CSS by class?", "How do you call item 3 from an array", "How do you display a variable with a String of text", ];
+        "Which of these elements is an being referenced in CSS by class?", "How do you call item 3 from an array in JavaScript", "How do you display a variable with a String of text?", 
+        "How do you update your local files from git hub?", "How do you make a random number generator in JavaScript" ];
 const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
         ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />',
         '<link rel="./assets/css/style.css" href="stylesheet" />'],
@@ -38,7 +39,9 @@ const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.r
         ['.name', '#name', '/name', 'name'],
         ['name[2]', 'name[3]', 'name<2>', 'name<3>'],
         ['.textContent = variable + " a String of text";' , '.textContent = variable * " a String of text";', '.textContent = variable - " a String of text";' , 
-        '.textContent = variable "a String of text";'], ];
+        '.textContent = variable "a String of text";'],
+        ['git pull', 'git clone', 'git push', 'git stash'],
+        ['Math.floor(Math.random() * max)', 'random(min, max)', 'random() * max', 'floor.Math(random.Math() * max)'], ];
 
 /* display top 10 scores */
 
@@ -89,6 +92,9 @@ function startTime() {
         timeEl.textContent = timer;
   
         if(isComplete) {
+            if(score < 0) {
+                score = 0;
+            }
             score = timer;
             question.style.display="none";
             answerOne.style.display="none";
@@ -106,6 +112,7 @@ function startTime() {
             answerThree.style.display="none";
             answerFour.style.display="none";
             scoreReview.style.display="block";
+            score = 0;
             clearInterval(timerInterval);
         }
         timer--;
