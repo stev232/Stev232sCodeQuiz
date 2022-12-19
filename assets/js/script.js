@@ -22,9 +22,11 @@ const resetScores = document.getElementById("scoreReset");
 const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
                 "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
 
-const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?" ];
+const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?", "Which of these elements are being referenced in CSS by id?", ];
 const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
-        ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />', '<link rel="./assets/css/style.css" href="stylesheet" />'], ];
+        ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />',
+        '<link rel="./assets/css/style.css" href="stylesheet" />'],
+        ['#name', '.name', '/name', 'name'], ];
 const startQuiz = document.getElementById("startQuiz");
 const question = document.getElementById("questionContainer");
 const answerOne = document.getElementById("answerOne");
