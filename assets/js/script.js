@@ -92,10 +92,10 @@ function startTime() {
         timeEl.textContent = timer;
   
         if(isComplete) {
+            score = timer;
             if(score < 0) {
                 score = 0;
             }
-            score = timer;
             question.style.display="none";
             answerOne.style.display="none";
             answerTwo.style.display="none";
@@ -104,15 +104,15 @@ function startTime() {
             scoreReview.style.display="block";
             displayScore.textContent=score;
             clearInterval(timerInterval);
-        } else if(timer === 0) {
-            score = timer;
+        } else if(timer <= 0) {
+            timeEl.textContent = 0;
+            score = 0;
             question.style.display="none";
             answerOne.style.display="none";
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
             scoreReview.style.display="block";
-            score = 0;
             clearInterval(timerInterval);
         }
         timer--;
