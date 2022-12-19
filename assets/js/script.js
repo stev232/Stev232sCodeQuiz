@@ -1,6 +1,6 @@
 var scoreBoard = JSON.parse(localStorage.getItem("highScores"));
 if(scoreBoard==null) {
-    scoreBoard = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+    scoreBoard = [["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"]];
 }
 
 var isComplete = false;
@@ -8,34 +8,45 @@ var timer = 60;
 var score = 0;
 var answerOrder = [];
 var isUnique = true;
+var questionOrder = [];
 var questionNum;
+var userInitials;
 
 /* Declare constants */
 /* These are all different html elements */
 const timeEl = document.getElementById("timer");
+const initials = document.getElementById("initials");
+const submitInitials = document.getElementById("submitInitials");
+const scoreReview = document.getElementById("prompt");
+const displayScore = document.getElementById("displayScore");
 const resetScores = document.getElementById("scoreReset");
-const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
-                "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
-
-const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?" ];
-const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
-        ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />', '<link rel="./assets/css/style.css" href="stylesheet" />'], ];
 const startQuiz = document.getElementById("startQuiz");
 const question = document.getElementById("questionContainer");
 const answerOne = document.getElementById("answerOne");
 const answerTwo = document.getElementById("answerTwo");
 const answerThree = document.getElementById("answerThree");
 const answerFour = document.getElementById("answerFour");
+const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
+                "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
+
+const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?", "Which of these elements is an being referenced in CSS by id?", 
+        "Which of these elements is an being referenced in CSS by class?", "How do you call item 3 from an array", ];
+const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
+        ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />',
+        '<link rel="./assets/css/style.css" href="stylesheet" />'],
+        ['#name', '.name', '/name', 'name'],
+        ['.name', '#name', '/name', 'name'],
+        ['name[2]', 'name[3]', 'name<2>', 'name<3>'], ];
 
 /* display top 10 scores */
 
 function generateScoreBoard() {
-    if(scoreBoard != null && scoreBoard[0] != 0){
+    if(scoreBoard != null && scoreBoard[0][1] != 0){
         for(var i = 0; i < scoreBoard.length; i++) {
-            if(scoreBoard[i] == 0) {
+            if(scoreBoard[i][1] == 0) {
                 break;
             } else {
-                document.getElementById(liEl[i]).textContent  = scoreBoard[i];
+                document.getElementById(liEl[i]).textContent  = scoreBoard[i][0] + ": " +scoreBoard[i][1];
             }
         }
     } else {
@@ -52,11 +63,13 @@ generateScoreBoard();
 
 function saveScore() {
     for(var i = 0; i < scoreBoard.length; i++) {
-        if(score > scoreBoard[i]) {
+        if(score > scoreBoard[i][1]) {
             for(var x = 9; x > i; x--) {
-                scoreBoard[x] = scoreBoard[x-1];
+                scoreBoard[x][0] = scoreBoard[x-1][0];
+                scoreBoard[x][1] = scoreBoard[x-1][1];
             }
-            scoreBoard[i] = score;
+            scoreBoard[i][0] = userInitials;
+            scoreBoard[i][1] = score;
             break;
         }
     }
@@ -67,13 +80,11 @@ function saveScore() {
 /* start quiz */
 
 function startTime() {
+    questionRand();
     generateQuestion();
 
     var timerInterval = setInterval(function() {
         timeEl.textContent = timer;
-        console.log("isComplete: " + isComplete);
-        console.log("questionNum: " + questionNum);
-        console.log(timer);
   
         if(isComplete) {
             score = timer;
@@ -82,9 +93,9 @@ function startTime() {
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
-            startQuiz.style.display="block";
+            scoreReview.style.display="block";
+            displayScore.textContent=score;
             document.getElementById("quiz").setAttribute("flex-direction", "column");
-            saveScore();
             clearInterval(timerInterval);
         } else if(timer === 0) {
             score = timer;
@@ -93,9 +104,8 @@ function startTime() {
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
-            startQuiz.style.display="block";
+            scoreReview.style.display="block";
             document.getElementById("quiz").setAttribute("flex-direction", "column");
-            saveScore();
             clearInterval(timerInterval);
         }
         timer--;
@@ -106,11 +116,29 @@ function startTime() {
 
 function generateQuestion() {
     answerRand();
-    question.textContent = arrQuestions[questionNum];
-    answerOne.textContent = arrAnswers[questionNum][answerOrder[0]];
-    answerTwo.textContent = arrAnswers[questionNum][answerOrder[1]];
-    answerThree.textContent = arrAnswers[questionNum][answerOrder[2]];
-    answerFour.textContent = arrAnswers[questionNum][answerOrder[3]];
+    question.textContent = arrQuestions[questionOrder[questionNum]];
+    answerOne.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[0]];
+    answerTwo.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[1]];
+    answerThree.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[2]];
+    answerFour.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[3]];
+}
+
+function questionRand() {
+    for(var i = 0; i < arrQuestions.length; i++) {
+        holder = Math.floor(Math.random() * arrQuestions.length);
+        for(var x = 0; x < i; x++) {
+            if(questionOrder[x] === holder) {
+                isUnique = false;
+            }
+        }
+        if(isUnique) {
+            questionOrder[i] = holder;
+        } else {
+            isUnique = true;
+            i -= 1;
+        }
+
+    }
 }
 
 /* randomize where the answers display */
@@ -149,7 +177,7 @@ function answerChecker(answerNum) {
 
 /* Set event listeners */
 resetScores.addEventListener("click", function() {
-    scoreBoard = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+    scoreBoard = [["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"]];
     localStorage.setItem("highScores", JSON.stringify(scoreBoard));
     generateScoreBoard();
 });
@@ -184,4 +212,12 @@ answerThree.addEventListener("click", function() {
 
 answerFour.addEventListener("click", function() {
     answerChecker(3);
+});
+
+submitInitials.addEventListener("click", function() {
+    userInitials = initials.value;
+
+    saveScore();
+    scoreReview.style.display="none";
+    startQuiz.style.display="block";
 });
