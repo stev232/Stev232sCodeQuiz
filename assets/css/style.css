@@ -10,6 +10,7 @@ header {
     display: flex;
     flex-direction: row;
     font-size: 22px;
+    height: 10vh;
     justify-content: space-around;
     padding: 15px;
 }
@@ -20,8 +21,8 @@ header {
     display: flex;
     flex-direction: row;
     font-size: 20px;
-    height: 100%;
-    margin-top: 25px;
+    height: 80vh;
+    margin-top: 2%;
     padding-top: 15px;
 }
 
@@ -45,11 +46,16 @@ ul {
     margin-top: 1%;
 }
 
+.scoreReset {
+    height: 35px;
+    margin-top: 5%;
+    width: 150px;
+}
+
 .quiz {
     display: flex;
     padding-left: 5px;
     flex-direction: column;
-    justify-content: flex-start;
     padding-left: 50px;
     height: 100%;
     width: 80%;
@@ -60,11 +66,6 @@ ul {
     flex-direction: column;
 }
 
-.question h1 {
-    display: none;
-    padding-bottom: 15px;
-}
-
 .question p {
     align-self: center;
 }
@@ -73,6 +74,11 @@ ul {
     height: 50px;
     margin-bottom: 25px;
     width: 200px;
+}
+
+.question h1 {
+    display: none;
+    padding-bottom: 15px;
 }
 
 .answerBtns {

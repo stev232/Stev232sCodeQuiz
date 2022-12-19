@@ -83,9 +83,19 @@ function startTime() {
             answerThree.style.display="none";
             answerFour.style.display="none";
             startQuiz.style.display="block";
+            document.getElementById("quiz").setAttribute("flex-direction", "column");
             saveScore();
             clearInterval(timerInterval);
         } else if(timer === 0) {
+            score = timer;
+            question.style.display="none";
+            answerOne.style.display="none";
+            answerTwo.style.display="none";
+            answerThree.style.display="none";
+            answerFour.style.display="none";
+            startQuiz.style.display="block";
+            document.getElementById("quiz").setAttribute("flex-direction", "column");
+            saveScore();
             clearInterval(timerInterval);
         }
         timer--;
@@ -145,6 +155,7 @@ resetScores.addEventListener("click", function() {
 });
 
 startQuiz.addEventListener("click", function() {
+    document.getElementById("quiz").setAttribute("flex-direction", "row");
     isComplete = false;
     timer = 60;
     questionNum = 0;
