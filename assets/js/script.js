@@ -8,6 +8,7 @@ var timer = 60;
 var score = 0;
 var answerOrder = [];
 var isUnique = true;
+var questionOrder = [];
 var questionNum;
 var userInitials;
 
@@ -19,20 +20,23 @@ const submitInitials = document.getElementById("submitInitials");
 const scoreReview = document.getElementById("prompt");
 const displayScore = document.getElementById("displayScore");
 const resetScores = document.getElementById("scoreReset");
-const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
-                "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
-
-const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?", "Which of these elements are being referenced in CSS by id?", ];
-const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
-        ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />',
-        '<link rel="./assets/css/style.css" href="stylesheet" />'],
-        ['#name', '.name', '/name', 'name'], ];
 const startQuiz = document.getElementById("startQuiz");
 const question = document.getElementById("questionContainer");
 const answerOne = document.getElementById("answerOne");
 const answerTwo = document.getElementById("answerTwo");
 const answerThree = document.getElementById("answerThree");
 const answerFour = document.getElementById("answerFour");
+const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
+                "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
+
+const arrQuestions = ["What is  the statement to set a border radius in css?", "What command do you use to link a style sheet?", "Which of these elements is an being referenced in CSS by id?", 
+        "Which of these elements is an being referenced in CSS by class?", "How do you call item 3 from an array", ];
+const arrAnswers = [["border-radius", "borderRadius", "border_radius", "border.radius"], 
+        ['<link rel="stylesheet" href="./assets/css/style.css" />', '<a href="./assets/css/style.css" rel="stylesheet"> ', '<stylesheet path="./assets/css/style.css" />',
+        '<link rel="./assets/css/style.css" href="stylesheet" />'],
+        ['#name', '.name', '/name', 'name'],
+        ['.name', '#name', '/name', 'name'],
+        ['name[2]', 'name[3]', 'name<2>', 'name<3>'], ];
 
 /* display top 10 scores */
 
@@ -76,6 +80,7 @@ function saveScore() {
 /* start quiz */
 
 function startTime() {
+    questionRand();
     generateQuestion();
 
     var timerInterval = setInterval(function() {
@@ -111,11 +116,29 @@ function startTime() {
 
 function generateQuestion() {
     answerRand();
-    question.textContent = arrQuestions[questionNum];
-    answerOne.textContent = arrAnswers[questionNum][answerOrder[0]];
-    answerTwo.textContent = arrAnswers[questionNum][answerOrder[1]];
-    answerThree.textContent = arrAnswers[questionNum][answerOrder[2]];
-    answerFour.textContent = arrAnswers[questionNum][answerOrder[3]];
+    question.textContent = arrQuestions[questionOrder[questionNum]];
+    answerOne.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[0]];
+    answerTwo.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[1]];
+    answerThree.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[2]];
+    answerFour.textContent = arrAnswers[questionOrder[questionNum]][answerOrder[3]];
+}
+
+function questionRand() {
+    for(var i = 0; i < arrQuestions.length; i++) {
+        holder = Math.floor(Math.random() * arrQuestions.length);
+        for(var x = 0; x < i; x++) {
+            if(questionOrder[x] === holder) {
+                isUnique = false;
+            }
+        }
+        if(isUnique) {
+            questionOrder[i] = holder;
+        } else {
+            isUnique = true;
+            i -= 1;
+        }
+
+    }
 }
 
 /* randomize where the answers display */
