@@ -1,6 +1,6 @@
 var scoreBoard = JSON.parse(localStorage.getItem("highScores"));
 if(scoreBoard==null) {
-    scoreBoard = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+    scoreBoard = [["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"]];
 }
 
 var isComplete = false;
@@ -9,10 +9,15 @@ var score = 0;
 var answerOrder = [];
 var isUnique = true;
 var questionNum;
+var userInitials;
 
 /* Declare constants */
 /* These are all different html elements */
 const timeEl = document.getElementById("timer");
+const initials = document.getElementById("initials");
+const submitInitials = document.getElementById("submitInitials");
+const scoreReview = document.getElementById("prompt");
+const displayScore = document.getElementById("displayScore");
 const resetScores = document.getElementById("scoreReset");
 const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
                 "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
@@ -30,12 +35,12 @@ const answerFour = document.getElementById("answerFour");
 /* display top 10 scores */
 
 function generateScoreBoard() {
-    if(scoreBoard != null && scoreBoard[0] != 0){
+    if(scoreBoard != null && scoreBoard[0][1] != 0){
         for(var i = 0; i < scoreBoard.length; i++) {
-            if(scoreBoard[i] == 0) {
+            if(scoreBoard[i][1] == 0) {
                 break;
             } else {
-                document.getElementById(liEl[i]).textContent  = scoreBoard[i];
+                document.getElementById(liEl[i]).textContent  = scoreBoard[i][0] + ": " +scoreBoard[i][1];
             }
         }
     } else {
@@ -52,11 +57,13 @@ generateScoreBoard();
 
 function saveScore() {
     for(var i = 0; i < scoreBoard.length; i++) {
-        if(score > scoreBoard[i]) {
+        if(score > scoreBoard[i][1]) {
             for(var x = 9; x > i; x--) {
-                scoreBoard[x] = scoreBoard[x-1];
+                scoreBoard[x][0] = scoreBoard[x-1][0];
+                scoreBoard[x][1] = scoreBoard[x-1][1];
             }
-            scoreBoard[i] = score;
+            scoreBoard[i][0] = userInitials;
+            scoreBoard[i][1] = score;
             break;
         }
     }
@@ -71,9 +78,6 @@ function startTime() {
 
     var timerInterval = setInterval(function() {
         timeEl.textContent = timer;
-        console.log("isComplete: " + isComplete);
-        console.log("questionNum: " + questionNum);
-        console.log(timer);
   
         if(isComplete) {
             score = timer;
@@ -82,9 +86,9 @@ function startTime() {
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
-            startQuiz.style.display="block";
+            scoreReview.style.display="block";
+            displayScore.textContent=score;
             document.getElementById("quiz").setAttribute("flex-direction", "column");
-            saveScore();
             clearInterval(timerInterval);
         } else if(timer === 0) {
             score = timer;
@@ -93,9 +97,8 @@ function startTime() {
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
-            startQuiz.style.display="block";
+            scoreReview.style.display="block";
             document.getElementById("quiz").setAttribute("flex-direction", "column");
-            saveScore();
             clearInterval(timerInterval);
         }
         timer--;
@@ -149,7 +152,7 @@ function answerChecker(answerNum) {
 
 /* Set event listeners */
 resetScores.addEventListener("click", function() {
-    scoreBoard = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+    scoreBoard = [["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"], ["", "0"]];
     localStorage.setItem("highScores", JSON.stringify(scoreBoard));
     generateScoreBoard();
 });
@@ -184,4 +187,12 @@ answerThree.addEventListener("click", function() {
 
 answerFour.addEventListener("click", function() {
     answerChecker(3);
+});
+
+submitInitials.addEventListener("click", function() {
+    userInitials = initials.value;
+
+    saveScore();
+    scoreReview.style.display="none";
+    startQuiz.style.display="block";
 });

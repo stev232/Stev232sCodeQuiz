@@ -88,3 +88,13 @@ ul {
     padding: 1%;
     min-width: 200px;
 }
+
+.prompt {
+    display: none;
+}
+
+.submitInitials {
+    height: 35px;
+    margin-top: 1%;
+    width: 150px;
+}
