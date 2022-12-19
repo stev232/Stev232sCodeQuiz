@@ -17,3 +17,14 @@ __THEN__ time is subtracted from the clock<br>
 __THEN__ the game is over<br>
 *WHEN the game is over*<br>
 __THEN__ I can save my initials and score<br>
+
+## ScreenShots
+
+![PLOT](./assets/screenshots/blankPage.PNG)
+![PLOT](./assets/screenshots/quizStart.PNG)
+![PLOT](./assets/screenshots/addInitials.PNG)
+![PLOT](./assets/screenshots/scoreBoard.PNG)
+
+## Deployment Link
+
+https://github.com/stev232/Stev232sCodeQuiz/
