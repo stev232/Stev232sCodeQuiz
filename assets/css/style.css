@@ -85,5 +85,6 @@ ul {
     display: none;
     height: 50px;
     margin-bottom: 10px;
+    padding: 1%;
     min-width: 200px;
 }
