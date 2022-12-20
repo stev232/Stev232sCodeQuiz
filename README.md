@@ -27,4 +27,4 @@ __THEN__ I can save my initials and score<br>
 
 ## Deployment Link
 
-https://github.com/stev232/Stev232sCodeQuiz/
+https://stev232.github.io/Stev232sCodeQuiz/
