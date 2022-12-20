@@ -14,6 +14,7 @@ var userInitials;
 
 /* Declare constants */
 /* These are all different html elements */
+const responseEl = document.getElementById("response");
 const timeEl = document.getElementById("timer");
 const initials = document.getElementById("initials");
 const submitInitials = document.getElementById("submitInitials");
@@ -26,6 +27,7 @@ const answerOne = document.getElementById("answerOne");
 const answerTwo = document.getElementById("answerTwo");
 const answerThree = document.getElementById("answerThree");
 const answerFour = document.getElementById("answerFour");
+const responseArr = ["Correct!", "Wrong!"];
 const liEl = ["firstPlace", "secondPlace", "thirdPlace", "fourthPlace","fifthPlace",
                 "sixthPlace", "seventhPlace", "eighthPlace", "ninethPlace", "tenthPlace"];
 
@@ -101,6 +103,7 @@ function startTime() {
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
+            responseEl.style.display = "none";
             scoreReview.style.display="block";
             displayScore.textContent=score;
             clearInterval(timerInterval);
@@ -112,6 +115,7 @@ function startTime() {
             answerTwo.style.display="none";
             answerThree.style.display="none";
             answerFour.style.display="none";
+            responseEl.style.display = "none";
             scoreReview.style.display="block";
             clearInterval(timerInterval);
         }
@@ -172,9 +176,13 @@ function answerRand() {
 /* check if user input is correct */
 
 function answerChecker(answerNum) {
+    responseEl.style.display = "block";
     isComplete = false;
     if(answerOrder[answerNum] !== 0) {
         timer -= 10;
+        responseEl.textContent = responseArr[1];
+    } else {
+        responseEl.textContent = responseArr[0];
     }
     questionNum++;
     if(questionNum >= arrQuestions.length) {

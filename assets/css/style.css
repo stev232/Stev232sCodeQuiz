@@ -108,6 +108,16 @@ ul {
     width: 150px;
 }
 
+/* Section showing quiz taker if they were "Correct!" or "Wrong!" */
+
+.response {
+    align-self: flex-end;
+    border-top: 1px grey solid;
+    display: none;
+    font-size: 20px;
+    width: 100%;
+}
+
 /* adjust layout for phone-medium screens */
 @media screen and (max-width: 900px) {
     header{
